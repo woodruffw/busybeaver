@@ -15,7 +15,7 @@ int beaver_init(struct beaver *bb, const char *path)
 	long file_sz;
 	char *l1, *l2;
 	char *l1p, *l2p;
-	int zcount0, zcount1;
+	int zcount0 = 0, zcount1 = 0;
 
 	if (!state_file)
 		return -1;
@@ -39,8 +39,11 @@ int beaver_init(struct beaver *bb, const char *path)
 	if (!l1 || !l2)
 		return -5;
 
-	fgets(l1, 15, state_file);
-	fgets(l2, 15, state_file);
+	if (!fgets(l1, 15, state_file))
+		return -6;
+
+	if (!fgets(l2, 15, state_file))
+		return -6;
 
 	l1p = strtok(l1, ",");
 	for (int i = 1; i < MAX_STATES + 1; i++)
@@ -67,18 +70,18 @@ int beaver_init(struct beaver *bb, const char *path)
 		if (!strcmp(bb->states_0[i], "0"))
 			zcount0++;
 		else if (strlen(bb->states_0[i]) != 3)
-			return -6;
+			return -7;
 		if (!strcmp(bb->states_1[i], "0"))
 			zcount1++;
 		else if (strlen(bb->states_1[i]) != 3)
-			return -6;
+			return -7;
 	}
 
 	if (zcount0 != zcount1)
-		return -6;
+		return -7;
 
 	bb->nstates = zcount0;
-	bb->curr_state = 1;
+	bb->curr_state = '1';
 
 	tm_init(&(bb->machine), 5000);
 
@@ -111,34 +114,51 @@ void beaver_destroy(struct beaver *bb)
 
 int run(struct beaver bb)
 {
+	int iter = 1;
+	char curr_symbol = 0;
+
+	// print some friendly output before starting
 	printf("%s%d states.\n", "Beginning busy beaver with ", bb.nstates);
 	printf("%s\n", "States are: ");
 
-	printf("0\t");
-
+	printf("\t0\t");
 	for (int i = 1; i <= bb.nstates; i++)
 	{
 		printf("%d\t", i);
 	}
-
 	puts("");
 
-	printf("HALT\t");
-
+	printf("0\tHALT\t");
 	for (int i = 1; i <= bb.nstates; i++)
 	{
 		printf("%s\t", bb.states_0[i]);
 	}
-
 	puts("");
 
-	printf("HALT\t");
-
+	printf("1\tHALT\t");
 	for (int i = 1; i <= bb.nstates; i++)
 	{
 		printf("%s\t", bb.states_1[i]);
 	}
+	puts("\n---------------------------------");
 
-	puts("");
+	while (bb.curr_state != HALT)
+	{
+		printf("Iteration: %d\n", iter);
+		curr_symbol = bb.machine.tape[bb.machine.cell];
+		printf("Symbol read: %c\n", curr_symbol);
+
+		switch (bb.curr_state)
+		{
+			case '1':
+				break;
+			case '2':
+				break;
+		}
+
+		break;
+	}
+
+
 	return 0;
 }

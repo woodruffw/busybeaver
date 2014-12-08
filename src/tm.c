@@ -10,5 +10,5 @@
 void tm_init(struct tm *machine, int init_cell)
 {
 	machine->cell = init_cell;
-	memset(machine->tape, 10000, 0);
+	memset(machine->tape, '0', 10000);
 }

@@ -30,6 +30,9 @@ int main(int argc, char const *argv[])
 			printf("%s\n", "Error on malloc().");
 			return -1;
 		case -6:
+			printf("%s\n", "Error on fgets().");
+			return -1;
+		case -7:
 			printf("%s\n", "Error in statefile format.");
 			return -1;
 		default:

@@ -10,11 +10,12 @@
 #include "tm.h"
 
 #define MAX_STATES 4 // don't change under penalty of death
+#define HALT '0'
 
 struct beaver
 {
 	struct tm machine;
-	int curr_state;
+	char curr_state;
 	int nstates;
 	char *states_0[MAX_STATES + 1];
 	char *states_1[MAX_STATES + 1];
