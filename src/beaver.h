@@ -1,9 +1,15 @@
+/*	beaver.h
+	Author: William Woodruff
+	------------------------
+	Function prototypes and the beaver struct for beaver.c.
+*/
+
 #ifndef BUSYBEAVER_BEAVER_H
 #define BUSYBEAVER_BEAVER_H
 
 #include "tm.h"
 
-#define MAX_STATES 4
+#define MAX_STATES 4 // don't change under penalty of death
 
 struct beaver
 {
@@ -15,6 +21,7 @@ struct beaver
 };
 
 int beaver_init(struct beaver *bb, const char *path);
+void beaver_destroy(struct beaver *bb);
 int run(struct beaver bb);
 
 #endif /* BUSYBEAVER_BEAVER_H */

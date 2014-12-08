@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
 	switch (stat)
 	{
 		case 0:
-			printf("%s\n", "Success.");
+			printf("%s\n", "Statefile load success.");
 			break;
 		case -1:
 			printf("%s\n", "Error on fopen().");
@@ -36,6 +36,11 @@ int main(int argc, char const *argv[])
 			printf("%s\n", "Other error.");
 			return -1;
 	}
+
+	// not actually implemented yet
+	run(bb);
+
+	beaver_destroy(&bb);
 	
 	return 0;
 }

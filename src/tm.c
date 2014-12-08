@@ -1,3 +1,9 @@
+/*	tm.c
+	Author: William Woodruff
+	------------------------
+	Contains the function for initializing a tm (Turing machine) struct.
+*/
+
 #include <string.h>
 #include "tm.h"
 

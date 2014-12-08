@@ -1,5 +1,7 @@
-/*
-
+/*	beaver.c
+	Author: William Woodruff
+	------------------------
+	Functions for initializing a beaver struct and running it with a statefile.
 */
 
 #include <stdio.h>
@@ -81,13 +83,62 @@ int beaver_init(struct beaver *bb, const char *path)
 	tm_init(&(bb->machine), 5000);
 
 	fclose(state_file);
-	free(l1);
-	free(l2);
+
+#ifdef DEBUG
+	printf("No. states: %d\n", zcount0);
+	printf("%s", "states_0: ");
+	for (int i = 0; i <= bb->nstates; i++)
+	{
+		printf("%s ", bb->states_0[i]);
+	}
+	puts("");
+	printf("%s", "states_1: ");
+	for (int i = 0; i <= bb->nstates; i++)
+	{
+		printf("%s ", bb->states_1[i]);
+	}
+	puts("");
+#endif
 
 	return 0;
 }
 
+void beaver_destroy(struct beaver *bb)
+{
+	free(bb->states_0[1]);
+	free(bb->states_1[1]);
+}
+
 int run(struct beaver bb)
 {
+	printf("%s%d states.\n", "Beginning busy beaver with ", bb.nstates);
+	printf("%s\n", "States are: ");
+
+	printf("0\t");
+
+	for (int i = 1; i <= bb.nstates; i++)
+	{
+		printf("%d\t", i);
+	}
+
+	puts("");
+
+	printf("HALT\t");
+
+	for (int i = 1; i <= bb.nstates; i++)
+	{
+		printf("%s\t", bb.states_0[i]);
+	}
+
+	puts("");
+
+	printf("HALT\t");
+
+	for (int i = 1; i <= bb.nstates; i++)
+	{
+		printf("%s\t", bb.states_1[i]);
+	}
+
+	puts("");
 	return 0;
 }
