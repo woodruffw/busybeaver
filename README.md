@@ -87,6 +87,8 @@ Then, just run it:
 $ ./busybeaver mystatefile.state
 ```
 
+You can find some example statefiles in the *states* directory.
+
 ### Diagnostics
 
 Because this is a crappy busy beaver, all kinds of bad things are bound to happen
