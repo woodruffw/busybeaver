@@ -48,3 +48,36 @@ This beaver would produce the following tape state:
 ```
 
 For a total of 6 steps and 4 toggled cells.
+
+## This Implementation
+
+Because an optimal busy beaver with more than 5 states has
+[yet to be decided](http://www.logique.jussieu.fr/~michel/ha.html#tm52),
+this implementation only supports 4 or fewer states.
+
+It takes a file as its singlular input, parsing it for the symbol/state table.
+The parser is extremely rudimentary, and an example 2-2 table might look like this:
+
+```
+1r2,1r1
+1r2,1r0
+```
+
+Where the first number is the symbol, and the second is the state index
+(i.e. 0 => *HALT*, 1 => 'A', 2 => 'B', etc...). The middle character represents
+the action (l => 'left', r => 'right'). As such, the table above presents the same
+busy beaver as the example table.
+
+### Building:
+
+`busybeaver` is meant to be C99 compatible, and should build on any system with
+a C99-compliant compiler.
+
+Just run:
+```bash
+$ git clone https://github.com/woodruffw/busybeaver
+$ cd busybeaver
+$ make
+```
+
+This will drop the `busybeaver` executable in the working directory.
