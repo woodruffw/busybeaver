@@ -20,20 +20,21 @@ int main(int argc, char const *argv[])
 			break;
 		case -1:
 			printf("%s\n", "Error on fopen().");
-			break;
+			return -1;
 		case -2:
 		case -3:
 		case -4:
 			printf("%s\n", "Error on fseek()/ftell().");
-			break;
+			return -1;
 		case -5:
 			printf("%s\n", "Error on malloc().");
-			break;
+			return -1;
 		case -6:
 			printf("%s\n", "Error in state file format.");
-			break;
+			return -1;
 		default:
 			printf("%s\n", "Other error.");
+			return -1;
 	}
 	
 	return 0;

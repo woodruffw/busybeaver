@@ -1,7 +1,7 @@
 busybeaver
 ==========
 
-A crappy implementation of a busy beaver Turing machine.
+A crappy implementation of a busy beaver Turing machine. **Not finished.**
 
 ## What is a busy beaver?
 
@@ -68,7 +68,7 @@ Where the first number is the symbol, and the second is the state index
 the action (l => 'left', r => 'right'). As such, the table above presents the same
 busy beaver as the example table.
 
-### Building:
+### Building and Running:
 
 `busybeaver` is meant to be C99 compatible, and should build on any system with
 a C99-compliant compiler.
@@ -81,3 +81,25 @@ $ make
 ```
 
 This will drop the `busybeaver` executable in the working directory.
+Then, just run it:
+
+```bash
+$ ./busybeaver mystatefile.state
+```
+
+### Diagnostics
+
+Because this is a crappy busy beaver, all kinds of bad things are bound to happen
+unless you follow the *statefile* format exactly. If the program segfaults
+or does something unexpected, check for the following:
+
+* Whitespace in the statefile. Make sure there is **none**.
+* Trailing commas or other symbols.
+* Typos.
+* Incorrect bounds (e.g. `1r8`).
+
+## License
+
+`busybeaver` is licensed under the MIT License.
+
+For the exact terms, see the [LICENSE file](./LICENSE).
