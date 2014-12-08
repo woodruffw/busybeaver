@@ -30,8 +30,8 @@ int beaver_init(struct beaver *bb, const char *path)
 		return -4;
 
 	/* states_n[0] is the HALT state */
-	bb->states_0[0] = "0";
-	bb->states_1[0] = "0";
+	bb->states_0[0] = 0;
+	bb->states_1[0] = 0;
 
 	l1 = malloc((file_sz / 2) + 1);
 	l2 = malloc((file_sz / 2) + 1);
@@ -81,7 +81,7 @@ int beaver_init(struct beaver *bb, const char *path)
 		return -7;
 
 	bb->nstates = zcount0;
-	bb->curr_state = '1';
+	bb->curr_state = 1;
 
 	tm_init(&(bb->machine), 5000);
 
@@ -114,8 +114,9 @@ void beaver_destroy(struct beaver *bb)
 
 int run(struct beaver bb)
 {
-	int iter = 1;
+	int iter = 0, count = 0;
 	char curr_symbol = 0;
+	char *curr_state_str;
 
 	// print some friendly output before starting
 	printf("%s%d states.\n", "Beginning busy beaver with ", bb.nstates);
@@ -144,21 +145,44 @@ int run(struct beaver bb)
 
 	while (bb.curr_state != HALT)
 	{
-		printf("Iteration: %d\n", iter);
+		printf("Iteration: %d\n", iter + 1);
 		curr_symbol = bb.machine.tape[bb.machine.cell];
 		printf("Symbol read: %c\n", curr_symbol);
 
-		switch (bb.curr_state)
+		printf("Current state: %d\n", bb.curr_state);
+
+		if (curr_symbol == '1')
 		{
-			case '1':
-				break;
-			case '2':
-				break;
+			curr_state_str = bb.states_1[bb.curr_state];
+		}
+		else // 0 or anything else is considered a blank tape symbol
+		{
+			curr_state_str = bb.states_0[bb.curr_state];
 		}
 
-		break;
+		if (curr_state_str[0])
+			bb.machine.tape[bb.machine.cell] = '1';
+		else
+			bb.machine.tape[bb.machine.cell] = '0';
+
+		if (curr_state_str[1] == 'r')
+			bb.machine.cell++;
+		else if (curr_state_str[1] == 'l')
+			bb.machine.cell--;
+
+		bb.curr_state = curr_state_str[2] - '0';
+
+		printf("%s\n", "--------------------------");
+
+		iter++;
 	}
 
+	for (int i = 0; i < 10000; i++)
+		if (bb.machine.tape[i] == '1')
+			count++;
+
+	printf("Machine halted with %d iterations.\n", iter);
+	printf("End result: %d cells toggled.\n", count);
 
 	return 0;
 }

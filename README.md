@@ -59,8 +59,8 @@ It takes a file as its singlular input, parsing it for the symbol/state table.
 The parser is extremely rudimentary, and an example 2-2 table might look like this:
 
 ```
-1r2,1r1
-1r2,1r0
+1r2,1l1
+1l2,1r0
 ```
 
 Where the first number is the symbol, and the second is the state index
