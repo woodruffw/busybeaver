@@ -18,10 +18,10 @@ state and current tape symbol, resulting in a sequence of operations until a
 
 Given a 2-state, 2-symbol busy beaver, the table might look something like this:
 
-|S/S|A|B|
-|------------
-|0	|1RB|1LA|
-|1	|1LB|1RH|
+| S/S | A | B |
+| --- | --- | --- |
+| 0 | 1RB | 1LA |
+| 1 | 1LB | 1RH |
 
 Where **A** and **B** are the states, **0** and **1** are the tape symbols,
 and **L**, **R**, and **H** represent left shift, right shift, and halting.
