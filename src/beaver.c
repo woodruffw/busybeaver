@@ -60,7 +60,7 @@ int beaver_init(struct beaver *bb, const char *path)
 			l2p = "0";
 	}
 
-	for (int i = 1; i < MAX_STATES; i++)
+	for (int i = 1; i <= MAX_STATES; i++)
 	{
 		if (!strcmp(bb->states_0[i], "0"))
 			zcount0++;
@@ -87,3 +87,7 @@ int beaver_init(struct beaver *bb, const char *path)
 	return 0;
 }
 
+int run(struct beaver bb)
+{
+	return 0;
+}
