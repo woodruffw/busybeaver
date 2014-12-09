@@ -11,11 +11,13 @@
 
 int beaver_init(struct beaver *bb, const char *path)
 {
-	FILE *state_file = fopen(path, "r");
+	FILE *state_file;
 	long file_sz;
 	char *l1, *l2;
 	char *l1p, *l2p;
 	int zcount0 = 4, zcount1 = 4;
+
+	state_file = fopen(path, "r");
 
 	if (!state_file)
 		return -1;
@@ -58,10 +60,7 @@ int beaver_init(struct beaver *bb, const char *path)
 	l1p = strtok(l1, " ");
 	for (int i = 1; i <= MAX_STATES; i++)
 	{
-		// printf("%d: %s\n", i, l1p);
-
 		bb->states_0[i] = l1p;
-		printf("%d: %s\n", i, bb->states_0[i]);
 		l1p = strtok(NULL, " ");
 
 		if (l1p == NULL)
@@ -71,10 +70,7 @@ int beaver_init(struct beaver *bb, const char *path)
 	l2p = strtok(l2, " ");
 	for (int i = 1; i <= MAX_STATES; i++)
 	{
-		// printf("%d: %s\n", i, l2p);
-
 		bb->states_1[i] = l2p;
-		printf("%d: %s\n", i, bb->states_1[i]);
 		l2p = strtok(NULL, " ");
 
 		if (l2p == NULL)
@@ -85,11 +81,11 @@ int beaver_init(struct beaver *bb, const char *path)
 	{
 		if (!strcmp(bb->states_0[i], "0"))
 			zcount0--;
-		else if (strlen(bb->states_0[i]) != 3)
+		else if (strlen(bb->states_0[i]) != 3 || bb->states_0[i][2] - '0' > 4)
 			return -7;
 		if (!strcmp(bb->states_1[i], "0"))
 			zcount1--;
-		else if (strlen(bb->states_1[i]) != 3)
+		else if (strlen(bb->states_1[i]) != 3 || bb->states_1[i][2] - '0' > 4)
 			return -7;
 	}
 
