@@ -99,10 +99,10 @@ Because this is a crappy busy beaver, all kinds of bad things are bound to happe
 unless you follow the *statefile* format exactly. If the program segfaults
 or does something unexpected, check for the following:
 
-* Whitespace in the statefile. Make sure there is **none**.
+* Extra whitespace in the statefile. Make sure there is **none**.
 * Trailing commas or other symbols.
 * Typos.
-* Incorrect bounds (e.g. `1r8`).
+* Incorrect bounds (e.g. `1r8`). These should now be caught, however.
 
 ## License
 
