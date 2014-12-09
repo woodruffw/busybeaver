@@ -1,7 +1,7 @@
 busybeaver
 ==========
 
-A crappy implementation of a busy beaver Turing machine. **Not finished.**
+A crappy implementation of a busy beaver Turing machine.
 
 ## What is a busy beaver?
 
@@ -86,6 +86,10 @@ Then, just run it:
 ```bash
 $ ./busybeaver mystatefile.state
 ```
+
+**IMPORTANT**: If your statefile describes a function that loops forever,
+`busybeaver` will almost definitely run out of tape space and segfault. Stick to
+busy beaver functions only (which must have *some* kind of halt statement.)
 
 You can find some example statefiles in the *states* directory.
 
