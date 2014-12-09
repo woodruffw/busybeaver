@@ -40,7 +40,6 @@ int main(int argc, char const *argv[])
 			return -1;
 	}
 
-	// not actually implemented yet
 	run(bb);
 
 	beaver_destroy(&bb);

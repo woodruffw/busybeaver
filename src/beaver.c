@@ -15,7 +15,7 @@ int beaver_init(struct beaver *bb, const char *path)
 	long file_sz;
 	char *l1, *l2;
 	char *l1p, *l2p;
-	int zcount0 = 0, zcount1 = 0;
+	int zcount0 = 4, zcount1 = 4;
 
 	if (!state_file)
 		return -1;
@@ -29,37 +29,53 @@ int beaver_init(struct beaver *bb, const char *path)
 	if (fseek(state_file, 0L, SEEK_SET))
 		return -4;
 
-	/* states_n[0] is the HALT state */
-	bb->states_0[0] = 0;
-	bb->states_1[0] = 0;
+	// states_n[0] is the HALT state
+	bb->states_0[0] = HALT;
+	bb->states_1[0] = HALT;
 
-	l1 = malloc((file_sz / 2) + 1);
-	l2 = malloc((file_sz / 2) + 1);
+	// 50 bytes is more than enough for each line
+	l1 = malloc(50);
+	l2 = malloc(50);
 
 	if (!l1 || !l2)
 		return -5;
 
-	if (!fgets(l1, 15, state_file))
+	if (!fgets(l1, 50, state_file))
 		return -6;
 
-	if (!fgets(l2, 15, state_file))
+	if (!fgets(l2, 50, state_file))
 		return -6;
 
-	l1p = strtok(l1, ",");
-	for (int i = 1; i < MAX_STATES + 1; i++)
+	// remove the trailing newline from the first line
+	if (l1[strlen(l1) - 1] == '\n')
+		l1[strlen(l1) - 1] = '\0';
+
+#ifdef DEBUG
+	printf("l1: %s\n", l1);
+	printf("l2: %s\n", l2);
+#endif
+
+	l1p = strtok(l1, " ");
+	for (int i = 1; i <= MAX_STATES; i++)
 	{
+		// printf("%d: %s\n", i, l1p);
+
 		bb->states_0[i] = l1p;
-		l1p = strtok(NULL, ",\n");
+		printf("%d: %s\n", i, bb->states_0[i]);
+		l1p = strtok(NULL, " ");
 
 		if (l1p == NULL)
 			l1p = "0";
 	}
 
-	l2p = strtok(l2, ",");
-	for (int i = 1; i < MAX_STATES + 1; i++)
+	l2p = strtok(l2, " ");
+	for (int i = 1; i <= MAX_STATES; i++)
 	{
+		// printf("%d: %s\n", i, l2p);
+
 		bb->states_1[i] = l2p;
-		l2p = strtok(NULL, ",\n");
+		printf("%d: %s\n", i, bb->states_1[i]);
+		l2p = strtok(NULL, " ");
 
 		if (l2p == NULL)
 			l2p = "0";
@@ -68,11 +84,11 @@ int beaver_init(struct beaver *bb, const char *path)
 	for (int i = 1; i <= MAX_STATES; i++)
 	{
 		if (!strcmp(bb->states_0[i], "0"))
-			zcount0++;
+			zcount0--;
 		else if (strlen(bb->states_0[i]) != 3)
 			return -7;
 		if (!strcmp(bb->states_1[i], "0"))
-			zcount1++;
+			zcount1--;
 		else if (strlen(bb->states_1[i]) != 3)
 			return -7;
 	}
@@ -160,7 +176,7 @@ int run(struct beaver bb)
 			curr_state_str = bb.states_0[bb.curr_state];
 		}
 
-		if (curr_state_str[0])
+		if (curr_state_str[0] == '1')
 			bb.machine.tape[bb.machine.cell] = '1';
 		else
 			bb.machine.tape[bb.machine.cell] = '0';
@@ -172,6 +188,7 @@ int run(struct beaver bb)
 
 		bb.curr_state = curr_state_str[2] - '0';
 
+		printf("Next state: %d\n", bb.curr_state);
 		printf("%s\n", "--------------------------");
 
 		iter++;
