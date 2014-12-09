@@ -19,7 +19,7 @@ state and current tape symbol, resulting in a sequence of operations until a
 
 Given a 2-state, 2-symbol busy beaver, the table might look something like this:
 
-| S/S | A | B |
+|  | A | B |
 | --- | --- | --- |
 | 0 | 1RB | 1LA |
 | 1 | 1LB | 1RH |
