@@ -9,6 +9,10 @@
 #include <string.h>
 #include "beaver.h"
 
+/*	beaver_init
+	Initializes the given beaver struct (pointer) with data from the given file.
+	Returns an error code < 0 if an error occurred.
+*/
 int beaver_init(struct beaver *bb, const char *path)
 {
 	FILE *state_file;
@@ -118,12 +122,19 @@ int beaver_init(struct beaver *bb, const char *path)
 	return 0;
 }
 
+/*	beaver_destroy
+	deallocates any memory allocated by beaver_init in the given beaver struct
+*/
 void beaver_destroy(struct beaver *bb)
 {
 	free(bb->states_0[1]);
 	free(bb->states_1[1]);
 }
 
+/*	run
+	the main busybeaver function.
+	prints out the state table, then runs until a HALT symbol is read.
+*/
 int run(struct beaver bb)
 {
 	int iter = 0, count = 0;
