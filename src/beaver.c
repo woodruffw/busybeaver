@@ -170,9 +170,8 @@ int run(struct beaver bb)
 	{
 		curr_symbol = bb.machine.tape[bb.machine.cell];
 
-		printf("Iteration: %d, Symbol: %c, State: %d\n", iter + 1, curr_symbol, bb.curr_state);
-		// printf("Symbol read: %c\n", curr_symbol);
-		// printf("Current state: %d\n", bb.curr_state);
+		printf("Iteration: %d, Symbol: %c, State: %d\n", iter + 1,
+				curr_symbol, bb.curr_state);
 
 		if (curr_symbol == '1')
 		{
