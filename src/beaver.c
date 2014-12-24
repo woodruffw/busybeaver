@@ -143,7 +143,7 @@ int run(struct beaver bb)
 
 	// print some friendly output before starting
 	printf("%s%d states.\n", "Beginning busy beaver with ", bb.nstates);
-	printf("%s\n", "States are: ");
+	printf("%s\n", "The state table is: ");
 
 	printf("\t0\t");
 	for (int i = 1; i <= bb.nstates; i++)
@@ -168,11 +168,11 @@ int run(struct beaver bb)
 
 	while (bb.curr_state != HALT)
 	{
-		printf("Iteration: %d\n", iter + 1);
 		curr_symbol = bb.machine.tape[bb.machine.cell];
-		printf("Symbol read: %c\n", curr_symbol);
 
-		printf("Current state: %d\n", bb.curr_state);
+		printf("Iteration: %d, Symbol: %c, State: %d\n", iter + 1, curr_symbol, bb.curr_state);
+		// printf("Symbol read: %c\n", curr_symbol);
+		// printf("Current state: %d\n", bb.curr_state);
 
 		if (curr_symbol == '1')
 		{
@@ -196,7 +196,7 @@ int run(struct beaver bb)
 		bb.curr_state = curr_state_str[2] - '0';
 
 		printf("Next state: %d\n", bb.curr_state);
-		printf("%s\n", "--------------------------");
+		puts("---------------------------------");
 
 		iter++;
 	}
