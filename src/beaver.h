@@ -9,6 +9,7 @@
 
 #include "tm.h"
 #include "errors.h"
+#include "misc.h"
 
 #define MAX_STATES 4 // don't change under penalty of death
 #define HALT 0

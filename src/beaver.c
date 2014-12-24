@@ -85,11 +85,11 @@ int beaver_init(struct beaver *bb, const char *path)
 	{
 		if (!strcmp(bb->states_0[i], "0"))
 			zcount0--;
-		else if (strlen(bb->states_0[i]) != 3 || bb->states_0[i][2] - '0' > 4)
+		else if (strlen(bb->states_0[i]) != 3 || CTOI(bb->states_0[i][2]) > 4)
 			return BB_ERR_BADFILE;
 		if (!strcmp(bb->states_1[i], "0"))
 			zcount1--;
-		else if (strlen(bb->states_1[i]) != 3 || bb->states_1[i][2] - '0' > 4)
+		else if (strlen(bb->states_1[i]) != 3 || CTOI(bb->states_1[i][2]) > 4)
 			return BB_ERR_BADFILE;
 	}
 
@@ -193,7 +193,7 @@ int run(struct beaver bb)
 		else if (curr_state_str[1] == 'l')
 			bb.machine.cell--;
 
-		bb.curr_state = curr_state_str[2] - '0';
+		bb.curr_state = CTOI(curr_state_str[2]);
 
 		printf("Next state: %d\n", bb.curr_state);
 		puts("---------------------------------");
