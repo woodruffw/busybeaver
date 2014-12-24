@@ -168,6 +168,12 @@ int run(struct beaver bb)
 
 	while (bb.curr_state != HALT)
 	{
+		if (bb.machine.cell < 0 || bb.machine.cell > 9999)
+		{
+			printf("%s\n", "Error: Tape overflow/underflow. Halting.");
+			return BB_ERR_TAPE;
+		}
+
 		curr_symbol = bb.machine.tape[bb.machine.cell];
 
 		printf("Iteration: %d, Symbol: %c, State: %d\n", iter + 1,

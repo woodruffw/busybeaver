@@ -7,6 +7,7 @@
 #define BB_ERR_MALLOC -4
 #define BB_ERR_FGETS -5
 #define BB_ERR_BADFILE -6
+#define BB_ERR_TAPE -7
 #define BB_ERR_OTHER -100
 
 #endif /* BUSYBEAVER_ERRORS_H */
