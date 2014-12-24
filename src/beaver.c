@@ -24,16 +24,16 @@ int beaver_init(struct beaver *bb, const char *path)
 	state_file = fopen(path, "r");
 
 	if (!state_file)
-		return -1;
+		return BB_ERR_FOPEN;
 
 	if (fseek(state_file, 0L, SEEK_END))
-		return -2;
+		return BB_ERR_FSEEK;
 
 	if (!(file_sz = ftell(state_file)))
-		return -3;
+		return BB_ERR_FTELL;
 
 	if (fseek(state_file, 0L, SEEK_SET))
-		return -4;
+		return BB_ERR_FSEEK;
 
 	// states_n[0] is the HALT state
 	bb->states_0[0] = HALT;
@@ -44,13 +44,13 @@ int beaver_init(struct beaver *bb, const char *path)
 	l2 = malloc(50);
 
 	if (!l1 || !l2)
-		return -5;
+		return BB_ERR_MALLOC;
 
 	if (!fgets(l1, 50, state_file))
-		return -6;
+		return BB_ERR_FGETS;
 
 	if (!fgets(l2, 50, state_file))
-		return -6;
+		return BB_ERR_FGETS;
 
 	// remove the trailing newline from the first line
 	if (l1[strlen(l1) - 1] == '\n')
@@ -86,15 +86,15 @@ int beaver_init(struct beaver *bb, const char *path)
 		if (!strcmp(bb->states_0[i], "0"))
 			zcount0--;
 		else if (strlen(bb->states_0[i]) != 3 || bb->states_0[i][2] - '0' > 4)
-			return -7;
+			return BB_ERR_BADFILE;
 		if (!strcmp(bb->states_1[i], "0"))
 			zcount1--;
 		else if (strlen(bb->states_1[i]) != 3 || bb->states_1[i][2] - '0' > 4)
-			return -7;
+			return BB_ERR_BADFILE;
 	}
 
 	if (zcount0 != zcount1)
-		return -7;
+		return BB_ERR_BADFILE;
 
 	bb->nstates = zcount0;
 	bb->curr_state = 1;
