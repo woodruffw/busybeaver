@@ -1,3 +1,9 @@
+/*	main.c
+	Author: William Woodruff
+	------------------------
+	The entry point for busybeaver.
+*/
+
 #include <stdio.h>
 #include "beaver.h"
 
